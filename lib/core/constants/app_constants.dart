@@ -11,7 +11,14 @@ abstract final class AppConstants {
 
   // --- Camera ---
   /// Frames per second sent to the TFLite classifier.
-  static const int inferenceFps = 4;
+  /// Reduced to 3 FPS: children draw/scan slowly, and lower FPS relieves CPU
+  /// pressure while still providing sub-second recognition latency.
+  static const int inferenceFps = 3;
+
+  // --- Asset Cache ---
+  /// Maximum total size (bytes) of locally cached 3D model + audio files.
+  /// When exceeded, the least-recently-used asset is evicted automatically.
+  static const int maxCacheSizeBytes = 200 * 1024 * 1024; // 200 MB
 
   // --- Image Processing ---
   /// Input size for the QuickDraw TFLite model.

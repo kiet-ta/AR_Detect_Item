@@ -34,3 +34,11 @@ final class CameraFrameCaptured extends CameraEvent {
 final class CameraDispose extends CameraEvent {
   const CameraDispose();
 }
+
+/// Internal event fired by the capture timer.
+///
+/// Intentionally prefixed with `_` to signal it is not meant for external use.
+/// The timer reads [CameraBloc._latestFrame] and forwards it to recognition.
+final class _CameraTimerTick extends CameraEvent {
+  const _CameraTimerTick();
+}

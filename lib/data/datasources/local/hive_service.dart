@@ -2,6 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../models/asset_cache_metadata.dart';
 import '../../models/drawing_model.dart';
 import '../../models/usage_log_model.dart';
 
@@ -24,11 +25,15 @@ final class HiveService {
     if (!Hive.isAdapterRegistered(UsageLogModelAdapter().typeId)) {
       Hive.registerAdapter(UsageLogModelAdapter());
     }
+    if (!Hive.isAdapterRegistered(AssetCacheMetadataAdapter().typeId)) {
+      Hive.registerAdapter(AssetCacheMetadataAdapter());
+    }
 
     // Open all boxes eagerly at startup to avoid first-access latency.
     await Future.wait([
       Hive.openBox<DrawingModel>(AppConstants.hiveBoxDrawings),
       Hive.openBox<UsageLogModel>(AppConstants.hiveBoxUsageLogs),
+      Hive.openBox<AssetCacheMetadata>(AppConstants.hiveBoxAssets),
       Hive.openBox<dynamic>(AppConstants.hiveBoxSettings),
     ]);
   }
@@ -40,6 +45,10 @@ final class HiveService {
   /// Returns the box for usage session logs.
   Box<UsageLogModel> get usageLogsBox =>
       Hive.box<UsageLogModel>(AppConstants.hiveBoxUsageLogs);
+
+  /// Returns the box for 3D asset cache metadata (LRU bookkeeping).
+  Box<AssetCacheMetadata> get assetMetadataBox =>
+      Hive.box<AssetCacheMetadata>(AppConstants.hiveBoxAssets);
 
   /// Returns the general settings box.
   Box<dynamic> get settingsBox =>

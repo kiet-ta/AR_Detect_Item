@@ -27,9 +27,16 @@ final class CameraPaused extends CameraState {
   const CameraPaused();
 }
 
-/// A frame has been captured and is being sent to recognition.
+/// A frame has been captured and is ready to be forwarded to recognition.
+/// Carries the raw image bytes so the UI can dispatch them to [RecognitionBloc]
+/// without re-accessing the camera controller.
 final class CameraCapturing extends CameraState {
-  const CameraCapturing();
+  CameraCapturing(this.imageBytes);
+
+  final Uint8List imageBytes;
+
+  @override
+  List<Object?> get props => [imageBytes];
 }
 
 /// Camera initialization or stream failed.

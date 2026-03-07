@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../core/errors/failures.dart';
+import '../entities/drawing_entity.dart';
 
 /// Connectivity status values emitted by the sync stream.
 enum ConnectivityStatus { online, offline }
@@ -19,4 +20,8 @@ abstract interface class SyncRepository {
 
   /// Returns the number of drawings currently queued for upload.
   Future<int> getQueuedDrawingCount();
+
+  /// Binarizes [drawing] via Otsu's method and saves it to the local
+  /// Data Flywheel queue, stripping all photographic content (COPPA).
+  Future<Either<Failure, Unit>> saveForRetraining(DrawingEntity drawing);
 }

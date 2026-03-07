@@ -4,10 +4,14 @@ import 'package:injectable/injectable.dart';
 import '../../core/errors/exceptions.dart';
 import '../../core/errors/failures.dart';
 import '../../core/network/connectivity_service.dart';
+import '../../core/utils/image_preprocessor.dart';
+import '../../core/utils/logger.dart';
+import '../../domain/entities/drawing_entity.dart';
 import '../../domain/repositories/sync_repository.dart';
 import '../datasources/local/drawing_local_datasource.dart';
 import '../datasources/remote/firebase_storage_service.dart';
 import '../datasources/remote/firestore_service.dart';
+import '../models/drawing_model.dart';
 
 @Injectable(as: SyncRepository)
 final class SyncRepositoryImpl implements SyncRepository {
@@ -64,4 +68,26 @@ final class SyncRepositoryImpl implements SyncRepository {
   @override
   Future<int> getQueuedDrawingCount() =>
       _localDatasource.getQueueCount();
+
+  @override
+  Future<Either<Failure, Unit>> saveForRetraining(
+    DrawingEntity drawing,
+  ) async {
+    try {
+      final sanitisedBytes = ImagePreprocessor.compressForRetraining(
+        drawing.imageBytes,
+      );
+      final model = DrawingModel.fromEntity(
+        drawing.copyWith(imageBytes: sanitisedBytes),
+        needsRetraining: true,
+      );
+      await _localDatasource.saveFailedDrawing(model);
+      AppLogger.d(
+        'SyncRepositoryImpl: saved binarized drawing \${drawing.id}',
+      );
+      return const Right(unit);
+    } on Exception catch (e) {
+      return Left(CacheFailure('Failed to save drawing: \$e'));
+    }
+  }
 }

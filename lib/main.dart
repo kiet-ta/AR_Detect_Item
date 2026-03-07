@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'app.dart';
 import 'core/di/injection_container.dart';
+import 'core/utils/background_sync_dispatcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,9 @@ void main() async {
 
   // Initialize Dependency Injection + Hive
   await configureDependencies();
+
+  // Register background tasks (WorkManager periodic sync)
+  await registerBackgroundTasks();
 
   runApp(const MagicDoodleApp());
 }

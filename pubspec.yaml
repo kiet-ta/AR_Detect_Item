@@ -58,6 +58,9 @@ dependencies:
   logger: ^2.4.0
   rxdart: ^0.28.0
 
+  # --- Background Jobs ---
+  workmanager: ^0.5.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

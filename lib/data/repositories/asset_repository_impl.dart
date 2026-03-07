@@ -32,7 +32,8 @@ final class AssetRepositoryImpl implements AssetRepository {
     final audioViPath = await _localDatasource.getFilePath(label, 'audio_vi');
 
     if (modelPath != null && audioEnPath != null && audioViPath != null) {
-      // Fully cached — return immediately without network
+      // Fully cached — stamp access time so LRU eviction keeps popular assets
+      await _localDatasource.updateLastAccessed(label);
       return Right(
         Asset3DEntity(
           label: label,
@@ -75,6 +76,12 @@ final class AssetRepositoryImpl implements AssetRepository {
         await _localDatasource.saveFile(
           asset.label, 'audio_vi', audioViBytes,
         );
+
+        // Record metadata for LRU tracking; eviction is deferred to avoid
+        // deleting assets we just downloaded during a bulk preload.
+        final totalSize =
+            modelBytes.length + audioEnBytes.length + audioViBytes.length;
+        await _localDatasource.recordCached(asset.label, totalSize);
       }
       return const Right(unit);
     } on ServerException catch (e) {
@@ -115,6 +122,12 @@ final class AssetRepositoryImpl implements AssetRepository {
       final audioViBytes =
           await _storageService.downloadFile(assetDoc.remoteAudioPathVi);
       await _localDatasource.saveFile(label, 'audio_vi', audioViBytes);
+
+      // Record metadata and evict LRU assets if the cache is now over budget.
+      final totalSize =
+          modelBytes.length + audioEnBytes.length + audioViBytes.length;
+      await _localDatasource.recordCached(label, totalSize);
+      await _localDatasource.evictIfNeeded();
 
       return Right(assetDoc.withLocalPaths(
         modelPath:

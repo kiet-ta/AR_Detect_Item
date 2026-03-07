@@ -13,6 +13,7 @@ import '../../../domain/entities/drawing_entity.dart';
 import '../../../domain/entities/recognition_result_entity.dart';
 import '../../../domain/usecases/fetch_3d_asset_usecase.dart';
 import '../../../domain/usecases/recognize_drawing_usecase.dart';
+import '../../../domain/usecases/save_failed_drawing_usecase.dart';
 
 part 'recognition_event.dart';
 part 'recognition_state.dart';
@@ -25,6 +26,7 @@ final class RecognitionBloc
   RecognitionBloc(
     this._recognizeUseCase,
     this._fetchAssetUseCase,
+    this._saveFailedDrawingUseCase,
   ) : super(const RecognitionIdle()) {
     on<RecognitionFrameReceived>(_onFrameReceived);
     on<RecognitionResultDismissed>(_onResultDismissed);
@@ -33,6 +35,7 @@ final class RecognitionBloc
 
   final RecognizeDrawingUseCase _recognizeUseCase;
   final FetchAssetUseCase _fetchAssetUseCase;
+  final SaveFailedDrawingUseCase _saveFailedDrawingUseCase;
   static const _uuid = Uuid();
 
   Future<void> _onFrameReceived(
@@ -83,8 +86,9 @@ final class RecognitionBloc
             ),
           );
         } else if (result.requiresRetraining) {
-          // confidence < 50% — Data Flywheel
+          // confidence < 50% — Data Flywheel: binarize and save locally
           AppLogger.d('RecognitionBloc: queuing for retraining');
+          await _saveFailedDrawingUseCase(drawing);
           emit(const RecognitionUnrecognized());
           await Future<void>.delayed(
             const Duration(milliseconds: 500),
