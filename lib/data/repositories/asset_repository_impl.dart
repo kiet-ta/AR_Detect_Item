@@ -68,13 +68,17 @@ final class AssetRepositoryImpl implements AssetRepository {
         final audioEnBytes =
             await _storageService.downloadFile(asset.remoteAudioPathEn);
         await _localDatasource.saveFile(
-          asset.label, 'audio_en', audioEnBytes,
+          asset.label,
+          'audio_en',
+          audioEnBytes,
         );
 
         final audioViBytes =
             await _storageService.downloadFile(asset.remoteAudioPathVi);
         await _localDatasource.saveFile(
-          asset.label, 'audio_vi', audioViBytes,
+          asset.label,
+          'audio_vi',
+          audioViBytes,
         );
 
         // Record metadata for LRU tracking; eviction is deferred to avoid
@@ -98,8 +102,7 @@ final class AssetRepositoryImpl implements AssetRepository {
   }
 
   @override
-  Future<List<String>> getCachedLabels() =>
-      _localDatasource.getCachedLabels();
+  Future<List<String>> getCachedLabels() => _localDatasource.getCachedLabels();
 
   Future<Either<Failure, Asset3DEntity>> _downloadAndCacheAsset(
     String label,
@@ -129,14 +132,15 @@ final class AssetRepositoryImpl implements AssetRepository {
       await _localDatasource.recordCached(label, totalSize);
       await _localDatasource.evictIfNeeded();
 
-      return Right(assetDoc.withLocalPaths(
-        modelPath:
-            (await _localDatasource.getFilePath(label, 'model'))!,
-        audioEnPath:
-            (await _localDatasource.getFilePath(label, 'audio_en'))!,
-        audioViPath:
-            (await _localDatasource.getFilePath(label, 'audio_vi'))!,
-      ).toEntity());
+      return Right(assetDoc
+          .withLocalPaths(
+            modelPath: (await _localDatasource.getFilePath(label, 'model'))!,
+            audioEnPath:
+                (await _localDatasource.getFilePath(label, 'audio_en'))!,
+            audioViPath:
+                (await _localDatasource.getFilePath(label, 'audio_vi'))!,
+          )
+          .toEntity());
     } on AssetNotFoundException catch (e) {
       return Left(AssetNotFoundFailure(e.label));
     } on ServerException catch (e) {

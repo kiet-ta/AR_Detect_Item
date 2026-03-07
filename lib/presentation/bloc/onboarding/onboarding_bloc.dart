@@ -16,8 +16,7 @@ part 'onboarding_state.dart';
 /// 3. If offline + cached: proceed to camera
 /// 4. If offline + no cache: show "connect to Wi-Fi" screen
 @injectable
-final class OnboardingBloc
-    extends Bloc<OnboardingEvent, OnboardingState> {
+final class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   OnboardingBloc(
     this._cacheAssetsUseCase,
     this._assetRepository,

@@ -8,13 +8,11 @@ abstract final class AssetPaths {
 
   // --- Images ---
   static const String appLogo = 'assets/images/magic_doodle_logo.png';
-  static const String splashBackground =
-      'assets/images/splash_background.png';
+  static const String splashBackground = 'assets/images/splash_background.png';
   static const String scanGuideFrame = 'assets/images/scan_guide_frame.png';
   static const String mascotIdle = 'assets/images/mascot_idle.png';
   static const String mascotHappy = 'assets/images/mascot_happy.png';
-  static const String placeholderModel =
-      'assets/models_3d/placeholder.glb';
+  static const String placeholderModel = 'assets/models_3d/placeholder.glb';
 
   // --- Audio ---
   /// Pattern: assets/audio/{label}_{language}.mp3

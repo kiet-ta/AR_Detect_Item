@@ -21,8 +21,7 @@ part 'recognition_state.dart';
 /// Orchestrates the full recognition pipeline:
 /// Frame → TFLite → Confidence check → 3D asset → Display OR Data Flywheel.
 @injectable
-final class RecognitionBloc
-    extends Bloc<RecognitionEvent, RecognitionState> {
+final class RecognitionBloc extends Bloc<RecognitionEvent, RecognitionState> {
   RecognitionBloc(
     this._recognizeUseCase,
     this._fetchAssetUseCase,

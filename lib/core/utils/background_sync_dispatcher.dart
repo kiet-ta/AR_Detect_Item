@@ -48,10 +48,8 @@ void _callbackDispatcher() {
       await HiveService.init();
       final hiveService = HiveService();
       final localDatasource = DrawingLocalDatasourceImpl(hiveService);
-      final storageService =
-          FirebaseStorageService(FirebaseStorage.instance);
-      final firestoreService =
-          FirestoreService(FirebaseFirestore.instance);
+      final storageService = FirebaseStorageService(FirebaseStorage.instance);
+      final firestoreService = FirestoreService(FirebaseFirestore.instance);
       await _runSync(localDatasource, storageService, firestoreService);
       return true;
     } on Exception catch (e) {

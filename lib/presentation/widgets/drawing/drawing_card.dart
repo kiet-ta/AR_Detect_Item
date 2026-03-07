@@ -28,16 +28,15 @@ class DrawingCard extends StatelessWidget {
                 right: 6,
                 bottom: 6,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.black54,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
                     _formatDate(entity.capturedAt),
-                    style: const TextStyle(
-                        color: Colors.white, fontSize: 10),
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 ),
               ),

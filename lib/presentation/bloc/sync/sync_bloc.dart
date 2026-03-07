@@ -33,8 +33,7 @@ final class SyncBloc extends Bloc<SyncEvent, SyncState> {
     Emitter<SyncState> emit,
   ) async {
     _connectivitySub?.cancel();
-    _connectivitySub =
-        _syncRepository.connectivityStream.listen((status) {
+    _connectivitySub = _syncRepository.connectivityStream.listen((status) {
       if (status == ConnectivityStatus.online) {
         add(const SyncConnectivityOnline());
       } else {
@@ -47,8 +46,7 @@ final class SyncBloc extends Bloc<SyncEvent, SyncState> {
     SyncConnectivityOnline event,
     Emitter<SyncState> emit,
   ) async {
-    final queuedCount =
-        await _syncRepository.getQueuedDrawingCount();
+    final queuedCount = await _syncRepository.getQueuedDrawingCount();
     if (queuedCount == 0) {
       emit(const SyncIdle());
       return;

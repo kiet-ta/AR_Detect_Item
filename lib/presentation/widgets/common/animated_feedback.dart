@@ -119,13 +119,13 @@ class _ConfettiPainter extends CustomPainter {
       final opacity = (1 - progress).clamp(0.0, 1.0);
       paint.color = p.color.withOpacity(opacity);
       final x = cx + p.dx * size.width * 0.4 * progress;
-      final y = cy + p.dy * size.height * 0.5 * progress +
+      final y = cy +
+          p.dy * size.height * 0.5 * progress +
           (progress * progress * size.height * 0.15); // gravity
       canvas.drawCircle(Offset(x, y), p.size * (1 - progress * 0.5), paint);
     }
   }
 
   @override
-  bool shouldRepaint(_ConfettiPainter old) =>
-      old.progress != progress;
+  bool shouldRepaint(_ConfettiPainter old) => old.progress != progress;
 }

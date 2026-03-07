@@ -133,7 +133,8 @@ final class AssetLocalDatasourceImpl implements AssetLocalDatasource {
   @override
   Future<void> updateLastAccessed(String label) async {
     final entry = _hiveService.assetMetadataBox.get(label);
-    if (entry == null) return; // Metadata may be absent for pre-LRU cached assets
+    if (entry == null)
+      return; // Metadata may be absent for pre-LRU cached assets
     entry.lastAccessedAtMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     await entry.save();
   }

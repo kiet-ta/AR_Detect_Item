@@ -2,19 +2,19 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:ar/core/errors/failures.dart';
-import 'package:ar/domain/entities/asset_3d_entity.dart';
-import 'package:ar/domain/repositories/asset_repository.dart';
-import 'package:ar/domain/usecases/fetch_3d_asset_usecase.dart';
+import 'package:magic_doodle/core/errors/failures.dart';
+import 'package:magic_doodle/domain/entities/asset_3d_entity.dart';
+import 'package:magic_doodle/domain/repositories/asset_repository.dart';
+import 'package:magic_doodle/domain/usecases/fetch_3d_asset_usecase.dart';
 
 class _MockAssetRepository extends Mock implements AssetRepository {}
 
 void main() {
-  late Fetch3dAssetUseCase sut;
+  late FetchAssetUseCase sut;
   late _MockAssetRepository mockRepo;
 
   const tLabel = 'cat';
-  final tAsset = Asset3dEntity(
+  final tAsset = Asset3DEntity(
     label: tLabel,
     localModelPath: '/cache/cat.glb',
     localAudioPathEn: '/cache/cat_en.mp3',
@@ -27,11 +27,11 @@ void main() {
 
   setUp(() {
     mockRepo = _MockAssetRepository();
-    sut = Fetch3dAssetUseCase(mockRepo);
+    sut = FetchAssetUseCase(mockRepo);
   });
 
-  group('Fetch3dAssetUseCase', () {
-    test('returns Asset3dEntity when asset is available locally', () async {
+  group('FetchAssetUseCase', () {
+    test('returns Asset3DEntity when asset is available locally', () async {
       when(() => mockRepo.getAsset(tLabel))
           .thenAnswer((_) async => Right(tAsset));
 

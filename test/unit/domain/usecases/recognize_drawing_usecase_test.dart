@@ -1,12 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:ar/core/errors/failures.dart';
-import 'package:ar/domain/entities/drawing_entity.dart';
-import 'package:ar/domain/entities/recognition_result_entity.dart';
-import 'package:ar/domain/repositories/recognition_repository.dart';
-import 'package:ar/domain/usecases/recognize_drawing_usecase.dart';
+import 'package:magic_doodle/core/errors/failures.dart';
+import 'package:magic_doodle/domain/entities/drawing_entity.dart';
+import 'package:magic_doodle/domain/entities/recognition_result_entity.dart';
+import 'package:magic_doodle/domain/repositories/recognition_repository.dart';
+import 'package:magic_doodle/domain/usecases/recognize_drawing_usecase.dart';
 
 class _MockRecognitionRepository extends Mock
     implements RecognitionRepository {}

@@ -44,9 +44,8 @@ final class UsageLogRepositoryImpl implements UsageLogRepository {
   @override
   Future<Either<Failure, Unit>> syncPendingLogs() async {
     try {
-      final pending = _hive.usageLogsBox.values
-          .where((m) => !m.isSynced)
-          .toList();
+      final pending =
+          _hive.usageLogsBox.values.where((m) => !m.isSynced).toList();
 
       for (final log in pending) {
         await _firestoreService.writeUsageLog(log);

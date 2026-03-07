@@ -17,8 +17,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt<OnboardingBloc>()..add(const OnboardingCheck()),
+      create: (_) => getIt<OnboardingBloc>()..add(const OnboardingCheck()),
       child: const _SplashView(),
     );
   }
@@ -52,13 +51,9 @@ class _SplashViewState extends State<_SplashView>
     final status = await Permission.camera.request();
     if (!mounted) return;
     if (status.isGranted) {
-      context
-          .read<OnboardingBloc>()
-          .add(const OnboardingPermissionGranted());
+      context.read<OnboardingBloc>().add(const OnboardingPermissionGranted());
     } else {
-      context
-          .read<OnboardingBloc>()
-          .add(const OnboardingPermissionDenied());
+      context.read<OnboardingBloc>().add(const OnboardingPermissionDenied());
     }
   }
 
@@ -111,41 +106,36 @@ class _SplashViewState extends State<_SplashView>
                       const SizedBox(height: 32),
                       Text(
                         'Magic Doodle',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall
-                            ?.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
                       ),
-                      if (state is OnboardingPermissionRequired) ...
-                        [
-                          const SizedBox(height: 32),
-                          ElevatedButton.icon(
-                            onPressed: () => openAppSettings(),
-                            icon: const Icon(Icons.camera_alt_rounded),
-                            label: const Text('Allow Camera'),
-                          ),
-                        ],
-                      if (state is OnboardingOfflineNoAssets) ...
-                        [
-                          const SizedBox(height: 32),
-                          const Icon(
-                            Icons.wifi_off_rounded,
-                            size: 48,
-                            color: AppColors.textSecondary,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'Connect to Wi-Fi for first setup',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    color: AppColors.textSecondary),
-                          ),
-                        ],
+                      if (state is OnboardingPermissionRequired) ...[
+                        const SizedBox(height: 32),
+                        ElevatedButton.icon(
+                          onPressed: () => openAppSettings(),
+                          icon: const Icon(Icons.camera_alt_rounded),
+                          label: const Text('Allow Camera'),
+                        ),
+                      ],
+                      if (state is OnboardingOfflineNoAssets) ...[
+                        const SizedBox(height: 32),
+                        const Icon(
+                          Icons.wifi_off_rounded,
+                          size: 48,
+                          color: AppColors.textSecondary,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Connect to Wi-Fi for first setup',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: AppColors.textSecondary),
+                        ),
+                      ],
                     ],
                   ),
                 ),

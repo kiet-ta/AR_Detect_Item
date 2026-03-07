@@ -66,8 +66,7 @@ final class SyncRepositoryImpl implements SyncRepository {
   }
 
   @override
-  Future<int> getQueuedDrawingCount() =>
-      _localDatasource.getQueueCount();
+  Future<int> getQueuedDrawingCount() => _localDatasource.getQueueCount();
 
   @override
   Future<Either<Failure, Unit>> saveForRetraining(

@@ -106,8 +106,7 @@ class _BracketPainter extends CustomPainter {
     final path = Path();
     for (final c in corners) {
       path.moveTo(c.start.dx, c.start.dy);
-      path.quadraticBezierTo(
-          c.corner.dx, c.corner.dy, c.end.dx, c.end.dy);
+      path.quadraticBezierTo(c.corner.dx, c.corner.dy, c.end.dx, c.end.dy);
     }
     canvas.drawPath(path, paint);
   }
