@@ -1,13 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:ar/core/errors/exceptions.dart';
-import 'package:ar/core/errors/failures.dart';
-import 'package:ar/data/ml/drawing_classifier.dart';
-import 'package:ar/data/repositories/recognition_repository_impl.dart';
-import 'package:ar/domain/entities/drawing_entity.dart';
-import 'package:ar/domain/entities/recognition_result_entity.dart';
+import 'package:magic_doodle/core/errors/exceptions.dart';
+import 'package:magic_doodle/core/errors/failures.dart';
+import 'package:magic_doodle/data/ml/drawing_classifier.dart';
+import 'package:magic_doodle/data/models/recognition_result_model.dart';
+import 'package:magic_doodle/data/repositories/recognition_repository_impl.dart';
+import 'package:magic_doodle/domain/entities/drawing_entity.dart';
+import 'package:magic_doodle/domain/entities/recognition_result_entity.dart';
 
 class _MockDrawingClassifier extends Mock implements DrawingClassifier {}
 
@@ -20,27 +23,36 @@ void main() {
     imageBytes: Uint8List(0),
     capturedAt: DateTime(2024),
   );
-  final tResult = RecognitionResultEntity(
+
+  final tRecognizedAtMs = DateTime.utc(2024).millisecondsSinceEpoch;
+  final tResultModel = RecognitionResultModel(
     label: 'dog',
     confidence: 0.92,
     category: 'animal',
-    recognizedAt: DateTime(2024),
+    recognizedAtMs: tRecognizedAtMs,
+  );
+  final tExpectedEntity = RecognitionResultEntity(
+    label: 'dog',
+    confidence: 0.92,
+    category: 'animal',
+    recognizedAt:
+        DateTime.fromMillisecondsSinceEpoch(tRecognizedAtMs, isUtc: true),
   );
 
   setUp(() {
     mockClassifier = _MockDrawingClassifier();
     sut = RecognitionRepositoryImpl(mockClassifier);
-    registerFallbackValue(tDrawing);
+    registerFallbackValue(Uint8List(0));
   });
 
   group('RecognitionRepositoryImpl.classify', () {
     test('returns Right(RecognitionResultEntity) on success', () async {
       when(() => mockClassifier.classify(any()))
-          .thenAnswer((_) async => tResult);
+          .thenAnswer((_) async => tResultModel);
 
       final result = await sut.classify(tDrawing);
 
-      expect(result, Right(tResult));
+      expect(result, Right(tExpectedEntity));
     });
 
     test('returns Left(InferenceFailure) on InferenceException', () async {
@@ -54,7 +66,7 @@ void main() {
       expect(failure, isA<InferenceFailure>());
     });
 
-    test('returns Left(CacheFailure) on generic exception', () async {
+    test('returns Left(InferenceFailure) on generic exception', () async {
       when(() => mockClassifier.classify(any()))
           .thenThrow(Exception('unexpected'));
 
