@@ -21,14 +21,14 @@ final class FirestoreService {
   /// Fetches the full list of available 3D assets from the manifest.
   Future<List<Asset3DModel>> fetchAssetManifest() async {
     try {
-      final snapshot = await _firestore
-          .collection(FirestoreCollections.assetManifest)
-          .get();
+      final snapshot =
+          await _firestore.collection(FirestoreCollections.assetManifest).get();
       return snapshot.docs
           .map((doc) => Asset3DModel.fromFirestore(doc.data()))
           .toList();
     } on FirebaseException catch (e) {
-      throw ServerException('Firestore fetchAssetManifest failed: ${e.message}');
+      throw ServerException(
+          'Firestore fetchAssetManifest failed: ${e.message}');
     }
   }
 

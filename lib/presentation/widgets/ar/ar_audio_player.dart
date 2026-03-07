@@ -45,10 +45,9 @@ class _ARAudioPlayerState extends State<ARAudioPlayer> {
   Widget build(BuildContext context) {
     return BigButton(
       icon: Icons.volume_up_rounded,
-      onPressed:
-          (widget.audioPathEn != null || widget.audioPathVi != null)
-              ? _onTap
-              : null,
+      onPressed: (widget.audioPathEn != null || widget.audioPathVi != null)
+          ? _onTap
+          : null,
       isLoading: _isPlaying,
       tooltip: 'Play pronunciation',
     );

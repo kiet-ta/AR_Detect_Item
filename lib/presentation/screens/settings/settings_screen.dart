@@ -70,8 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _SectionHeader(label: '⏱  Session Timer'),
                   _SessionSlider(
                     value: _sessionMinutes,
-                    onChanged: (v) =>
-                        setState(() => _sessionMinutes = v),
+                    onChanged: (v) => setState(() => _sessionMinutes = v),
                   ),
                   const SizedBox(height: 24),
                   _SectionHeader(label: '🇦🇺  Vietnamese Vocabulary'),

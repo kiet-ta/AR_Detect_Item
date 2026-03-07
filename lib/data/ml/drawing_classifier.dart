@@ -17,10 +17,15 @@ const List<String> _labels = [
 ];
 
 const Map<String, String> _categoryMap = {
-  'apple': 'food', 'banana': 'food',
-  'cat': 'animals', 'dog': 'animals', 'fish': 'animals',
-  'house': 'objects', 'car': 'transport',
-  'sun': 'nature', 'tree': 'nature',
+  'apple': 'food',
+  'banana': 'food',
+  'cat': 'animals',
+  'dog': 'animals',
+  'fish': 'animals',
+  'house': 'objects',
+  'car': 'transport',
+  'sun': 'nature',
+  'tree': 'nature',
   'star': 'shapes',
 };
 
@@ -98,8 +103,7 @@ final class DrawingClassifier {
       }
     }
 
-    final label =
-        maxIdx < _labels.length ? _labels[maxIdx] : 'unknown_$maxIdx';
+    final label = maxIdx < _labels.length ? _labels[maxIdx] : 'unknown_$maxIdx';
     final category = _categoryMap[label] ?? 'general';
 
     return RecognitionResultModel.fromTfliteOutput({

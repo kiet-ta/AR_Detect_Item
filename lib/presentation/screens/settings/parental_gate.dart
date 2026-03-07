@@ -58,10 +58,8 @@ class _ParentalGateDialogState extends State<_ParentalGateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24)),
-      title: const Icon(Icons.lock_rounded,
-          size: 40, color: AppColors.primary),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      title: const Icon(Icons.lock_rounded, size: 40, color: AppColors.primary),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

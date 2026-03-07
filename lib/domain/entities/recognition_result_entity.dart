@@ -28,6 +28,5 @@ final class RecognitionResultEntity extends Equatable {
   bool get requiresRetraining => confidence < 0.50;
 
   @override
-  List<Object?> get props =>
-      [label, confidence, category, recognizedAt];
+  List<Object?> get props => [label, confidence, category, recognizedAt];
 }

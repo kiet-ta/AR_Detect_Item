@@ -56,8 +56,8 @@ class ResultScreen extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 28, vertical: 18),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
                 decoration: BoxDecoration(
                   color: AppColors.primary,
                   borderRadius: BorderRadius.circular(28),
@@ -74,26 +74,23 @@ class ResultScreen extends StatelessWidget {
                     Text(
                       data.vocabularyEn,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                     ),
-                    if (data.vocabularyVi.isNotEmpty) ...
-                      [
-                        const SizedBox(height: 4),
-                        Text(
-                          data.vocabularyVi,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(color: Colors.white70),
-                        ),
-                      ],
+                    if (data.vocabularyVi.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        data.vocabularyVi,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(color: Colors.white70),
+                      ),
+                    ],
                   ],
                 ),
               ),

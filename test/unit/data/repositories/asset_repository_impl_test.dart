@@ -51,8 +51,7 @@ void main() {
           .thenAnswer((_) async => tAudioEnPath);
       when(() => mockLocal.getFilePath(tLabel, 'audio_vi'))
           .thenAnswer((_) async => tAudioViPath);
-      when(() => mockLocal.updateLastAccessed(tLabel))
-          .thenAnswer((_) async {});
+      when(() => mockLocal.updateLastAccessed(tLabel)).thenAnswer((_) async {});
 
       final result = await sut.getAsset(tLabel);
 
@@ -76,8 +75,7 @@ void main() {
           .thenAnswer((_) async => null);
       when(() => mockLocal.getFilePath(tLabel, 'audio_vi'))
           .thenAnswer((_) async => null);
-      when(() => mockNetworkInfo.isConnected)
-          .thenAnswer((_) async => false);
+      when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => false);
 
       final result = await sut.getAsset(tLabel);
 
