@@ -18,7 +18,6 @@ abstract final class AppRoutes {
 abstract final class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: AppRoutes.splash,
-    debugLogDiagnostics: false,
     routes: [
       GoRoute(
         path: AppRoutes.splash,

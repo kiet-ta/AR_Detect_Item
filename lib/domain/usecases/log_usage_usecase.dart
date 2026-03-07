@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../core/errors/failures.dart';
 import '../entities/usage_log_entity.dart';
 import '../repositories/usage_log_repository.dart';
-import '../../core/errors/failures.dart';
 
 /// Persists a completed session log for the parent dashboard.
 ///

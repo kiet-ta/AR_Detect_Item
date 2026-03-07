@@ -2,13 +2,13 @@ import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 import 'package:magic_doodle/core/errors/failures.dart';
 import 'package:magic_doodle/domain/entities/drawing_entity.dart';
 import 'package:magic_doodle/domain/entities/recognition_result_entity.dart';
 import 'package:magic_doodle/domain/repositories/recognition_repository.dart';
 import 'package:magic_doodle/domain/usecases/recognize_drawing_usecase.dart';
+import 'package:mocktail/mocktail.dart';
 
 class _MockRecognitionRepository extends Mock
     implements RecognitionRepository {}
@@ -37,23 +37,26 @@ void main() {
 
   group('RecognizeDrawingUseCase', () {
     test('returns RecognitionResultEntity on success', () async {
-      when(() => mockRepo.classify(any()))
-          .thenAnswer((_) async => Right(tResult));
+      when(() => mockRepo.classify(any())).thenAnswer(
+        (_) async => Right<Failure, RecognitionResultEntity>(tResult),
+      );
 
       final result = await sut(tDrawing);
 
-      expect(result, Right(tResult));
+      expect(result, Right<Failure, RecognitionResultEntity>(tResult));
       verify(() => mockRepo.classify(tDrawing)).called(1);
     });
 
     test('returns InferenceFailure on classifier error', () async {
       const failure = InferenceFailure('model error');
-      when(() => mockRepo.classify(any()))
-          .thenAnswer((_) async => const Left(failure));
+      when(() => mockRepo.classify(any())).thenAnswer(
+        (_) async =>
+            const Left<Failure, RecognitionResultEntity>(failure),
+      );
 
       final result = await sut(tDrawing);
 
-      expect(result, const Left(failure));
+      expect(result, const Left<Failure, RecognitionResultEntity>(failure));
     });
   });
 }

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../repositories/asset_repository.dart';
 import '../../core/errors/failures.dart';
+import '../repositories/asset_repository.dart';
 
 /// Downloads and caches all 3D model + audio assets from Firebase Storage.
 ///

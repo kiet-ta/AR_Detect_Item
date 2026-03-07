@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../repositories/sync_repository.dart';
 import '../../core/errors/failures.dart';
+import '../repositories/sync_repository.dart';
 
 /// Uploads all locally queued failed drawings to Firebase Storage.
 ///

@@ -10,30 +10,26 @@ final class AppLogger {
 
   static final Logger _logger = Logger(
     printer: PrettyPrinter(
-      methodCount: 2,
-      errorMethodCount: 8,
       lineLength: 80,
-      colors: true,
-      printEmojis: true,
     ),
     level: kReleaseMode ? Level.warning : Level.trace,
   );
 
   /// Debug log — verbose, only in debug mode.
-  static void d(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
+  static void d(message, [error, StackTrace? stackTrace]) =>
       _logger.d(message, error: error, stackTrace: stackTrace);
 
   /// Info log.
-  static void i(dynamic message) => _logger.i(message);
+  static void i(message) => _logger.i(message);
 
   /// Warning log.
-  static void w(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
+  static void w(message, [error, StackTrace? stackTrace]) =>
       _logger.w(message, error: error, stackTrace: stackTrace);
 
   /// Error log — always logged, even in release.
   static void e(
-    dynamic message, [
-    dynamic error,
+    message, [
+    error,
     StackTrace? stackTrace,
   ]) =>
       _logger.e(message, error: error, stackTrace: stackTrace);

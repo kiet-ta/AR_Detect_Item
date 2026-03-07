@@ -15,7 +15,7 @@ class DrawingCard extends StatelessWidget {
       onTap: onTap,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Container(
+        child: ColoredBox(
           color: Colors.white,
           child: Stack(
             fit: StackFit.expand,

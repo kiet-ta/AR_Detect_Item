@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../entities/usage_log_entity.dart';
 import '../../core/errors/failures.dart';
+import '../entities/usage_log_entity.dart';
 
 /// Contract for recording and syncing learning session data.
 abstract interface class UsageLogRepository {

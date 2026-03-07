@@ -32,7 +32,7 @@ final class SyncBloc extends Bloc<SyncEvent, SyncState> {
     SyncStartMonitoring event,
     Emitter<SyncState> emit,
   ) async {
-    _connectivitySub?.cancel();
+    await _connectivitySub?.cancel();
     _connectivitySub = _syncRepository.connectivityStream.listen((status) {
       if (status == ConnectivityStatus.online) {
         add(const SyncConnectivityOnline());

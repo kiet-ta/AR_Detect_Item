@@ -68,9 +68,11 @@ final class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
       (failure) {
         AppLogger.e('OnboardingBloc: asset download failed', failure.message);
         // Fallback: if some assets were cached, proceed anyway
-        emit(hasCache
-            ? const OnboardingOfflineReady()
-            : const OnboardingOfflineNoAssets());
+        emit(
+          hasCache
+              ? const OnboardingOfflineReady()
+              : const OnboardingOfflineNoAssets(),
+        );
       },
       (_) {
         AppLogger.i('OnboardingBloc: all assets cached');

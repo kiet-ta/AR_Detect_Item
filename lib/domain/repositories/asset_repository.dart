@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../entities/asset_3d_entity.dart';
 import '../../core/errors/failures.dart';
+import '../entities/asset_3d_entity.dart';
 
 /// Contract for fetching and caching 3D model + audio assets.
 abstract interface class AssetRepository {

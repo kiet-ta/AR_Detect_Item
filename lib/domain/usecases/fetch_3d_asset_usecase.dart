@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../core/errors/failures.dart';
 import '../entities/asset_3d_entity.dart';
 import '../repositories/asset_repository.dart';
-import '../../core/errors/failures.dart';
 
 /// Fetches the 3D model asset for a recognized label.
 ///

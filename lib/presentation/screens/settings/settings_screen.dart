@@ -67,13 +67,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 children: [
-                  _SectionHeader(label: '⏱  Session Timer'),
+                  const _SectionHeader(label: '⏱  Session Timer'),
                   _SessionSlider(
                     value: _sessionMinutes,
                     onChanged: (v) => setState(() => _sessionMinutes = v),
                   ),
                   const SizedBox(height: 24),
-                  _SectionHeader(label: '🇦🇺  Vietnamese Vocabulary'),
+                  const _SectionHeader(label: '🇦🇺  Vietnamese Vocabulary'),
                   SwitchListTile(
                     value: _viEnabled,
                     onChanged: (v) => setState(() => _viEnabled = v),
@@ -81,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     activeColor: AppColors.primary,
                   ),
                   const SizedBox(height: 24),
-                  _SectionHeader(label: '🔧  Developer'),
+                  const _SectionHeader(label: '🔧  Developer'),
                   SwitchListTile(
                     value: _debugMode,
                     onChanged: (v) => setState(() => _debugMode = v),

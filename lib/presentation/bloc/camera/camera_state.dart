@@ -31,7 +31,7 @@ final class CameraPaused extends CameraState {
 /// Carries the raw image bytes so the UI can dispatch them to [RecognitionBloc]
 /// without re-accessing the camera controller.
 final class CameraCapturing extends CameraState {
-  CameraCapturing(this.imageBytes);
+  const CameraCapturing(this.imageBytes);
 
   final Uint8List imageBytes;
 

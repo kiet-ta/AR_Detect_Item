@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
+import '../../core/errors/failures.dart';
 import '../entities/drawing_entity.dart';
 import '../entities/recognition_result_entity.dart';
-import '../../core/errors/failures.dart';
 
 /// Contract for the AI drawing classification pipeline.
 /// Data layer provides the concrete implementation via TFLite.

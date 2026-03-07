@@ -23,7 +23,7 @@ class LoadingOverlay extends StatelessWidget {
         child,
         if (isLoading)
           ModalBarrier(
-            color: Colors.black.withOpacity(0.45),
+            color: Colors.black.withValues(alpha: 0.45),
             dismissible: false,
           ),
         if (isLoading)
@@ -43,7 +43,9 @@ class LoadingOverlay extends StatelessWidget {
                   const SizedBox(height: 20),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 12),
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),

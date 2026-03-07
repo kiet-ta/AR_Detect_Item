@@ -44,7 +44,7 @@ class _ScanGuideOverlayState extends State<ScanGuideOverlay>
         final t = _pulse.value;
         final color = widget.isActive
             ? Color.lerp(AppColors.primary, AppColors.accent, t)!
-            : Colors.white.withOpacity(0.6);
+            : Colors.white.withValues(alpha: 0.6);
         return CustomPaint(
           painter: _BracketPainter(color: color, pulse: t),
           child: const SizedBox.expand(),
@@ -103,8 +103,9 @@ class _BracketPainter extends CustomPainter {
 
     final path = Path();
     for (final c in corners) {
-      path.moveTo(c.start.dx, c.start.dy);
-      path.quadraticBezierTo(c.corner.dx, c.corner.dy, c.end.dx, c.end.dy);
+      path
+        ..moveTo(c.start.dx, c.start.dy)
+        ..quadraticBezierTo(c.corner.dx, c.corner.dy, c.end.dx, c.end.dy);
     }
     canvas.drawPath(path, paint);
   }

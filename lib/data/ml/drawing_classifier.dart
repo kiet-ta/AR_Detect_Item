@@ -33,7 +33,7 @@ const Map<String, String> _categoryMap = {
 ///
 /// Pipeline: RGB bytes → Resize 28×28 → Grayscale → Normalize → Isolate → Labels.
 @injectable
-final class DrawingClassifier {
+class DrawingClassifier {
   DrawingClassifier(this._inferenceIsolate);
 
   final InferenceIsolate _inferenceIsolate;
@@ -64,7 +64,7 @@ final class DrawingClassifier {
       );
 
       // Convert to grayscale and normalize to [0.0, 1.0]
-      final tensorSize =
+      const tensorSize =
           AppConstants.modelInputSize * AppConstants.modelInputSize;
       final tensor = Float32List(tensorSize);
 

@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -80,7 +80,7 @@ class _DrawingGridState extends State<_DrawingGrid> {
                 child: Icon(
                   Icons.inbox_rounded,
                   size: 80,
-                  color: AppColors.textSecondary.withOpacity(0.3),
+                  color: AppColors.textSecondary.withValues(alpha: 0.3),
                 ),
               );
             }

@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 import 'package:magic_doodle/core/errors/failures.dart';
 import 'package:magic_doodle/core/network/network_info.dart';
@@ -9,6 +8,7 @@ import 'package:magic_doodle/data/datasources/remote/firebase_storage_service.da
 import 'package:magic_doodle/data/datasources/remote/firestore_service.dart';
 import 'package:magic_doodle/data/repositories/asset_repository_impl.dart';
 import 'package:magic_doodle/domain/entities/asset_3d_entity.dart';
+import 'package:mocktail/mocktail.dart';
 
 class _MockLocalDs extends Mock implements AssetLocalDatasource {}
 
@@ -55,7 +55,7 @@ void main() {
 
       final result = await sut.getAsset(tLabel);
 
-      final expected = Asset3DEntity(
+      const expected = Asset3DEntity(
         label: tLabel,
         localModelPath: tModelPath,
         localAudioPathEn: tAudioEnPath,
@@ -64,7 +64,7 @@ void main() {
         vocabularyVi: tLabel,
         category: 'general',
       );
-      expect(result, Right(expected));
+      expect(result, Right<Failure, Asset3DEntity>(expected));
       verify(() => mockLocal.updateLastAccessed(tLabel)).called(1);
     });
 
@@ -79,7 +79,7 @@ void main() {
 
       final result = await sut.getAsset(tLabel);
 
-      expect(result, const Left(AssetNotFoundFailure(tLabel)));
+      expect(result, const Left<Failure, Asset3DEntity>(AssetNotFoundFailure(tLabel)));
     });
   });
 }

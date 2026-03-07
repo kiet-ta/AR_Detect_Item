@@ -94,7 +94,7 @@ void _inferenceEntryPoint(SendPort mainSendPort) {
   final receivePort = ReceivePort();
   mainSendPort.send(receivePort.sendPort);
 
-  receivePort.listen((dynamic message) async {
+  receivePort.listen((message) async {
     if (message is! InferenceRequest) return;
 
     try {

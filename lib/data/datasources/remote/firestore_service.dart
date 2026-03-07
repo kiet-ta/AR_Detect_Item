@@ -11,7 +11,7 @@ import '../../models/usage_log_model.dart';
 /// All collection names come from [FirestoreCollections] constants.
 /// Methods wrap Firestore exceptions into [ServerException].
 @injectable
-final class FirestoreService {
+class FirestoreService {
   FirestoreService(this._firestore);
 
   final FirebaseFirestore _firestore;
@@ -28,7 +28,8 @@ final class FirestoreService {
           .toList();
     } on FirebaseException catch (e) {
       throw ServerException(
-          'Firestore fetchAssetManifest failed: ${e.message}');
+        'Firestore fetchAssetManifest failed: ${e.message}',
+      );
     }
   }
 

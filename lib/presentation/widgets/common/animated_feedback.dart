@@ -117,7 +117,7 @@ class _ConfettiPainter extends CustomPainter {
     final paint = Paint();
     for (final p in particles) {
       final opacity = (1 - progress).clamp(0.0, 1.0);
-      paint.color = p.color.withOpacity(opacity);
+      paint.color = p.color.withValues(alpha: opacity);
       final x = cx + p.dx * size.width * 0.4 * progress;
       final y = cy +
           p.dy * size.height * 0.5 * progress +

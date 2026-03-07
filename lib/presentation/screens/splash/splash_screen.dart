@@ -93,7 +93,7 @@ class _SplashViewState extends State<_SplashView>
                       Container(
                         width: 140,
                         height: 140,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.primary,
                           shape: BoxShape.circle,
                         ),

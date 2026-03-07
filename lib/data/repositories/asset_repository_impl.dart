@@ -132,15 +132,18 @@ final class AssetRepositoryImpl implements AssetRepository {
       await _localDatasource.recordCached(label, totalSize);
       await _localDatasource.evictIfNeeded();
 
-      return Right(assetDoc
-          .withLocalPaths(
-            modelPath: (await _localDatasource.getFilePath(label, 'model'))!,
-            audioEnPath:
-                (await _localDatasource.getFilePath(label, 'audio_en'))!,
-            audioViPath:
-                (await _localDatasource.getFilePath(label, 'audio_vi'))!,
-          )
-          .toEntity());
+      return Right(
+        assetDoc
+            .withLocalPaths(
+              modelPath:
+                  (await _localDatasource.getFilePath(label, 'model'))!,
+              audioEnPath:
+                  (await _localDatasource.getFilePath(label, 'audio_en'))!,
+              audioViPath:
+                  (await _localDatasource.getFilePath(label, 'audio_vi'))!,
+            )
+            .toEntity(),
+      );
     } on AssetNotFoundException catch (e) {
       return Left(AssetNotFoundFailure(e.label));
     } on ServerException catch (e) {

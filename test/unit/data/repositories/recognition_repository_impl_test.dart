@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 import 'package:magic_doodle/core/errors/exceptions.dart';
 import 'package:magic_doodle/core/errors/failures.dart';
@@ -11,6 +10,7 @@ import 'package:magic_doodle/data/models/recognition_result_model.dart';
 import 'package:magic_doodle/data/repositories/recognition_repository_impl.dart';
 import 'package:magic_doodle/domain/entities/drawing_entity.dart';
 import 'package:magic_doodle/domain/entities/recognition_result_entity.dart';
+import 'package:mocktail/mocktail.dart';
 
 class _MockDrawingClassifier extends Mock implements DrawingClassifier {}
 
@@ -52,7 +52,7 @@ void main() {
 
       final result = await sut.classify(tDrawing);
 
-      expect(result, Right(tExpectedEntity));
+      expect(result, Right<Failure, RecognitionResultEntity>(tExpectedEntity));
     });
 
     test('returns Left(InferenceFailure) on InferenceException', () async {

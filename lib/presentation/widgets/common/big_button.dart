@@ -34,11 +34,11 @@ class BigButton extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: onPressed == null ? bg.withOpacity(0.4) : bg,
+        color: onPressed == null ? bg.withValues(alpha: 0.4) : bg,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: bg.withOpacity(0.35),
+            color: bg.withValues(alpha: 0.35),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

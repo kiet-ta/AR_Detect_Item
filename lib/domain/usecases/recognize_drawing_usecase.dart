@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../core/errors/failures.dart';
 import '../entities/drawing_entity.dart';
 import '../entities/recognition_result_entity.dart';
 import '../repositories/recognition_repository.dart';
-import '../../core/errors/failures.dart';
 
 /// Runs the TFLite classifier on a captured drawing frame.
 ///

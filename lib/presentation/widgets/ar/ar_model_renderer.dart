@@ -23,7 +23,7 @@ class ARModelRenderer extends StatelessWidget {
         child: Icon(
           Icons.view_in_ar_rounded,
           size: 120,
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.35),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.35),
         ),
       );
     }
@@ -35,7 +35,6 @@ class ARModelRenderer extends StatelessWidget {
       alt: label,
       autoRotate: true,
       cameraControls: false,
-      backgroundColor: const Color(0x00000000),
     );
   }
 }

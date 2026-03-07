@@ -112,9 +112,10 @@ final class AssetLocalDatasourceImpl implements AssetLocalDatasource {
       final existing = box.get(label);
       if (existing != null) {
         // Update in-place — asset was re-downloaded (version bump).
-        existing.totalSizeBytes = totalSizeBytes;
-        existing.lastAccessedAtMs =
-            DateTime.now().toUtc().millisecondsSinceEpoch;
+        existing
+          ..totalSizeBytes = totalSizeBytes
+          ..lastAccessedAtMs =
+              DateTime.now().toUtc().millisecondsSinceEpoch;
         await existing.save();
       } else {
         await box.put(
@@ -133,8 +134,9 @@ final class AssetLocalDatasourceImpl implements AssetLocalDatasource {
   @override
   Future<void> updateLastAccessed(String label) async {
     final entry = _hiveService.assetMetadataBox.get(label);
-    if (entry == null)
+    if (entry == null) {
       return; // Metadata may be absent for pre-LRU cached assets
+    }
     entry.lastAccessedAtMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     await entry.save();
   }

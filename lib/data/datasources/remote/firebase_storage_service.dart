@@ -7,7 +7,7 @@ import '../../../core/errors/exceptions.dart';
 
 /// Firebase Storage operations: download assets, upload failed drawings.
 @injectable
-final class FirebaseStorageService {
+class FirebaseStorageService {
   FirebaseStorageService(this._storage);
 
   final FirebaseStorage _storage;

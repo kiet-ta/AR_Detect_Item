@@ -21,5 +21,5 @@ final GetIt getIt = GetIt.instance;
 Future<void> configureDependencies() async {
   // Hive must be initialized before any Hive-dependent singletons are created.
   await HiveService.init();
-  await getIt.init();
+  getIt.init();
 }
