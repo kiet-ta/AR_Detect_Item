@@ -31,13 +31,14 @@ final class TFLiteService {
     final interpreter = _loader.interpreter;
 
     // Allocate input/output tensors
-    final input = inputTensor.reshape([
+    final List<dynamic> input = inputTensor.reshape([
       1,
       AppConstants.modelInputSize,
       AppConstants.modelInputSize,
       1,
     ]);
-    final output = List.filled(_numClasses, 0.0).reshape([1, _numClasses]);
+    final List<dynamic> output =
+        List.filled(_numClasses, 0.0).reshape([1, _numClasses]);
 
     try {
       interpreter.run(input, output);

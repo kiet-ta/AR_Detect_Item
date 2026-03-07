@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/errors/exceptions.dart';
-import '../../models/recognition_result_model.dart';
+import '../models/recognition_result_model.dart';
 import 'inference_isolate.dart';
 
 /// Maps TFLite class indices to human-readable labels.

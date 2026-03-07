@@ -59,7 +59,7 @@ linter:
     prefer_final_in_for_each: true
     prefer_final_locals: true
     prefer_if_elements_to_conditional_expressions: true
-    prefer_int_literals_to_double_literals: true
+
     prefer_mixin: true
     prefer_null_aware_method_calls: true
     require_trailing_commas: true

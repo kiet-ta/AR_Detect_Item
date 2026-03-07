@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 
@@ -41,7 +43,7 @@ final class FirebaseStorageService {
       final path = 'failed_drawings/$drawingId.jpg';
       final ref = _storage.ref(path);
       await ref.putData(
-        imageBytes as dynamic,
+        Uint8List.fromList(imageBytes),
         SettableMetadata(contentType: 'image/jpeg'),
       );
       return path;

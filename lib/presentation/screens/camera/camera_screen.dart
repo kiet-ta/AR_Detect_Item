@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,6 +46,28 @@ class _CameraViewState extends State<_CameraView> {
   void initState() {
     super.initState();
     context.read<CameraBloc>().add(const CameraInitialize());
+    unawaited(_initController());
+  }
+
+  Future<void> _initController() async {
+    try {
+      final cameras = await availableCameras();
+      if (!mounted || cameras.isEmpty) return;
+      final controller = CameraController(
+        cameras.first,
+        ResolutionPreset.high,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
+      await controller.initialize();
+      if (!mounted) return;
+      setState(() => _controller = controller);
+    } on Exception catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Camera initialization failed: $e')),
+      );
+    }
   }
 
   @override
@@ -58,9 +82,6 @@ class _CameraViewState extends State<_CameraView> {
       backgroundColor: Colors.black,
       body: BlocConsumer<CameraBloc, CameraState>(
         listener: (ctx, camState) {
-          if (camState is CameraStreaming) {
-            setState(() => _controller = camState.controller);
-          }
           if (camState is CameraCapturing) {
             // Forward the captured image bytes to RecognitionBloc.
             ctx
@@ -82,12 +103,11 @@ class _CameraViewState extends State<_CameraView> {
                 final data = RecognitionResultRouteData(
                   label: recState.result.label,
                   confidence: recState.result.confidence,
-                  vocabularyEn:
-                      recState.asset?.vocabularyEn ?? recState.result.label,
-                  vocabularyVi: recState.asset?.vocabularyVi ?? '',
-                  localModelPath: recState.asset?.localModelPath,
-                  localAudioPathEn: recState.asset?.localAudioPathEn,
-                  localAudioPathVi: recState.asset?.localAudioPathVi,
+                  vocabularyEn: recState.asset.vocabularyEn,
+                  vocabularyVi: recState.asset.vocabularyVi,
+                  localModelPath: recState.asset.localModelPath,
+                  localAudioPathEn: recState.asset.localAudioPathEn,
+                  localAudioPathVi: recState.asset.localAudioPathVi,
                 );
                 rCtx.go(AppRoutes.result, extra: data);
               }

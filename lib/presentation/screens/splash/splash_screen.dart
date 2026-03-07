@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:permission_handler/permission_handler.dart' as ph;
 
 import '../../../core/di/injection_container.dart';
 import '../../../core/theme/app_colors.dart';
@@ -48,7 +48,7 @@ class _SplashViewState extends State<_SplashView>
   }
 
   Future<void> _requestPermission() async {
-    final status = await Permission.camera.request();
+    final status = await ph.Permission.camera.request();
     if (!mounted) return;
     if (status.isGranted) {
       context.read<OnboardingBloc>().add(const OnboardingPermissionGranted());
@@ -115,7 +115,7 @@ class _SplashViewState extends State<_SplashView>
                       if (state is OnboardingPermissionRequired) ...[
                         const SizedBox(height: 32),
                         ElevatedButton.icon(
-                          onPressed: () => openAppSettings(),
+                          onPressed: () => ph.openAppSettings(),
                           icon: const Icon(Icons.camera_alt_rounded),
                           label: const Text('Allow Camera'),
                         ),

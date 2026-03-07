@@ -14,14 +14,15 @@ final class AudioPlayerHelper {
   final AudioPlayer _player;
 
   /// Plays bilingual audio: [enPath] first, then [viPath] after [pauseMs]ms.
+  /// Skips playback for any null path.
   Future<void> playBilingual({
-    required String enPath,
-    required String viPath,
+    String? enPath,
+    String? viPath,
     int pauseMs = 500,
   }) async {
-    await playFile(enPath);
+    if (enPath != null) await playFile(enPath);
     await Future<void>.delayed(Duration(milliseconds: pauseMs));
-    await playFile(viPath);
+    if (viPath != null) await playFile(viPath);
   }
 
   /// Plays a single audio file from an absolute local [path].

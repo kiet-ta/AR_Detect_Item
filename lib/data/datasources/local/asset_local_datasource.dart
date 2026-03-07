@@ -48,7 +48,7 @@ final class AssetLocalDatasourceImpl implements AssetLocalDatasource {
 
   Future<Directory> _getCacheDirectory() async {
     final appDir = await getApplicationDocumentsDirectory();
-    final cacheDir = Directory('\${appDir.path}/$_cacheDir');
+    final cacheDir = Directory('${appDir.path}/$_cacheDir');
     if (!cacheDir.existsSync()) {
       await cacheDir.create(recursive: true);
     }
@@ -58,14 +58,14 @@ final class AssetLocalDatasourceImpl implements AssetLocalDatasource {
   /// [type]: 'model', 'audio_en', 'audio_vi'
   String _fileName(String label, String type) {
     final ext = type == 'model' ? 'glb' : 'mp3';
-    return '\${label}_$type.\$ext';
+    return '${label}_$type.$ext';
   }
 
   @override
   Future<void> saveFile(String label, String type, List<int> bytes) async {
     try {
       final dir = await _getCacheDirectory();
-      final file = File('\${dir.path}/\${_fileName(label, type)}');
+      final file = File('${dir.path}/${_fileName(label, type)}');
       await file.writeAsBytes(bytes, flush: true);
     } on Exception catch (e) {
       throw CacheException('Failed to cache asset $label/$type: $e');
@@ -75,7 +75,7 @@ final class AssetLocalDatasourceImpl implements AssetLocalDatasource {
   @override
   Future<String?> getFilePath(String label, String type) async {
     final dir = await _getCacheDirectory();
-    final file = File('\${dir.path}/\${_fileName(label, type)}');
+    final file = File('${dir.path}/${_fileName(label, type)}');
     return file.existsSync() ? file.path : null;
   }
 
@@ -144,7 +144,7 @@ final class AssetLocalDatasourceImpl implements AssetLocalDatasource {
     try {
       final dir = await _getCacheDirectory();
       for (final type in _allTypes) {
-        final file = File('\${dir.path}/\${_fileName(label, type)}');
+        final file = File('${dir.path}/${_fileName(label, type)}');
         if (file.existsSync()) await file.delete();
       }
       await _hiveService.assetMetadataBox.delete(label);

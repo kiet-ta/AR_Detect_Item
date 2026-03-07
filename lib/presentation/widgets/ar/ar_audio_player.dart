@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/di/injection_container.dart';
 import '../../../core/utils/audio_player_helper.dart';
@@ -35,8 +34,8 @@ class _ARAudioPlayerState extends State<ARAudioPlayer> {
     if (_isPlaying) return;
     setState(() => _isPlaying = true);
     await _helper.playBilingual(
-      englishPath: widget.audioPathEn,
-      vietnamesePath: widget.audioPathVi,
+      enPath: widget.audioPathEn,
+      viPath: widget.audioPathVi,
     );
     if (mounted) setState(() => _isPlaying = false);
   }

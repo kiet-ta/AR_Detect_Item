@@ -82,11 +82,11 @@ final class SyncRepositoryImpl implements SyncRepository {
       );
       await _localDatasource.saveFailedDrawing(model);
       AppLogger.d(
-        'SyncRepositoryImpl: saved binarized drawing \${drawing.id}',
+        'SyncRepositoryImpl: saved binarized drawing ${drawing.id}',
       );
       return const Right(unit);
     } on Exception catch (e) {
-      return Left(CacheFailure('Failed to save drawing: \$e'));
+      return Left(CacheFailure('Failed to save drawing: $e'));
     }
   }
 }

@@ -31,4 +31,13 @@ abstract final class AppColors {
   static const Color confidenceHigh = Color(0xFF4CAF50);
   static const Color confidenceMedium = Color(0xFFFF9800);
   static const Color confidenceLow = Color(0xFFF44336);
+
+  // --- Semantic aliases ---
+  static const Color surface = surfaceLight;
+  static const Color background = backgroundLight;
+  static const Color accent = secondary;
+
+  // --- Text ---
+  static const Color textPrimary = Color(0xFF1A1A2E);
+  static const Color textSecondary = Color(0xFF757575);
 }
